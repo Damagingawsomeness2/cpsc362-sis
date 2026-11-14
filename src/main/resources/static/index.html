@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in | Titan SIS</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/sis.css">
+  <script type="module" src="/js/login.js"></script>
+</head>
+<body class="signin-page">
+  <main class="signin">
+    <p class="brand"><span class="brand-mark" aria-hidden="true">T</span> <span class="brand-name">Titan SIS</span></p>
+    <h1 class="signin-title">Student Information System</h1>
+    <form class="signin-card" id="sign-in">
+      <h2>Sign in</h2>
+      <label>Username <input name="username" autocomplete="username" required autofocus></label>
+      <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+      <p class="form-error" id="sign-in-error" role="alert" hidden></p>
+      <button class="button" type="submit">Sign in</button>
+    </form>
+    <p class="signin-note">A CPSC 362 class project, not an official CSU Fullerton system. Demo accounts are listed in README.md.</p>
+  </main>
+</body>
+</html>

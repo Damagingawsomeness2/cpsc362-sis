@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrar portal | Titan SIS</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/sis.css">
+  <script type="module" src="/js/admin.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <p class="brand"><span class="brand-mark" aria-hidden="true">T</span> <span class="brand-name">Titan SIS</span></p>
+      <span class="portal-name">Registrar portal</span>
+      <div class="account">
+        <span data-user-name></span>
+        <button class="button small on-navy" type="button" data-sign-out>Sign out</button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Registrar portal">
+      <button class="tab" type="button" role="tab" id="tab-accounts" aria-controls="accounts">Accounts</button>
+      <button class="tab" type="button" role="tab" id="tab-courses" aria-controls="courses">Courses</button>
+      <button class="tab" type="button" role="tab" id="tab-schedule" aria-controls="schedule">Class schedule</button>
+      <button class="tab" type="button" role="tab" id="tab-majors" aria-controls="majors">Majors</button>
+      <button class="tab" type="button" role="tab" id="tab-records" aria-controls="records">Transcripts and graduation</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="accounts" role="tabpanel" aria-labelledby="tab-accounts" hidden>
+      <div class="panel">
+        <h2>Accounts</h2>
+        <p class="lede">Revoking access signs the person out and blocks sign-in. Their enrollments, grades and transcript are kept.</p>
+        <div class="toolbar">
+          <label class="grow">Find an account <input id="account-filter" type="search" placeholder="Name, username, CWID or department"></label>
+        </div>
+        <div id="account-list"></div>
+      </div>
+      <div class="split">
+        <details class="panel add">
+          <summary>Add a student</summary>
+          <form id="add-student">
+            <div class="form-grid">
+              <label>CWID <input name="cwid" required inputmode="numeric" pattern="\d{9}" maxlength="9"></label>
+              <label>Full name <input name="name" required maxlength="100"></label>
+              <label>Email <input name="email" type="email" maxlength="120"></label>
+              <label>Major <select name="majorCode"><option value="">Undeclared</option></select></label>
+              <label>Username <input name="username" required minlength="3" maxlength="40" autocomplete="off"></label>
+              <label>Initial password <input name="password" type="password" required minlength="8" maxlength="72" autocomplete="new-password"></label>
+            </div>
+            <div class="form-actions"><button class="button" type="submit">Add student</button></div>
+          </form>
+        </details>
+        <details class="panel add">
+          <summary>Add a professor</summary>
+          <form id="add-professor">
+            <div class="form-grid">
+              <label>Full name <input name="name" required maxlength="100"></label>
+              <label>Department <input name="department" required maxlength="100"></label>
+              <label>Email <input name="email" type="email" maxlength="120"></label>
+              <label>Username <input name="username" required minlength="3" maxlength="40" autocomplete="off"></label>
+              <label>Initial password <input name="password" type="password" required minlength="8" maxlength="72" autocomplete="new-password"></label>
+            </div>
+            <div class="form-actions"><button class="button" type="submit">Add professor</button></div>
+          </form>
+        </details>
+      </div>
+    </section>
+
+    <section id="courses" role="tabpanel" aria-labelledby="tab-courses" hidden>
+      <div class="panel">
+        <h2>Course catalog</h2>
+        <details class="add">
+          <summary>Add a course</summary>
+          <form id="add-course">
+            <div class="form-grid">
+              <label>Course code <input name="code" required placeholder="CPSC 362"></label>
+              <label>Title <input name="title" required maxlength="120"></label>
+              <label>Units <input name="units" type="number" min="1" max="6" value="3" required></label>
+              <label class="wide">Prerequisites
+                <input name="prerequisites" placeholder="Course codes separated by commas, e.g. CPSC 131, MATH 170B">
+              </label>
+              <label class="wide">Description <textarea name="description" rows="2" maxlength="2000"></textarea></label>
+            </div>
+            <div class="form-actions"><button class="button" type="submit">Add course</button></div>
+          </form>
+        </details>
+        <div id="course-list"></div>
+      </div>
+    </section>
+
+    <section id="schedule" role="tabpanel" aria-labelledby="tab-schedule" hidden>
+      <div class="panel">
+        <h2>Terms</h2>
+        <details class="add">
+          <summary>Add a term</summary>
+          <form id="add-term">
+            <div class="form-grid">
+              <label>Name <input name="name" required maxlength="40" placeholder="Fall 2027"></label>
+              <label>First day of classes <input name="startDate" type="date" required></label>
+              <label>Last day of the term <input name="endDate" type="date" required></label>
+            </div>
+            <div class="form-actions"><button class="button" type="submit">Add term</button></div>
+          </form>
+        </details>
+        <div id="term-list"></div>
+      </div>
+      <div class="panel">
+        <h2>Sections</h2>
+        <div class="toolbar"><label>Term <select id="schedule-term"></select></label></div>
+        <details class="add">
+          <summary>Add a section</summary>
+          <form id="add-section">
+            <div class="form-grid">
+              <label>Term <select name="termId" required></select></label>
+              <label>Course <select name="courseCode" required></select></label>
+              <label>Section number <input name="sectionNumber" required maxlength="4" placeholder="01"></label>
+              <label>Instructor <select name="professorId"></select></label>
+              <label>Seats <input name="capacity" type="number" min="1" max="500" value="40" required></label>
+              <label>Days <input name="days" maxlength="10" placeholder="MW, TuTh or blank for online"></label>
+              <label>Starts <input name="startTime" type="time"></label>
+              <label>Ends <input name="endTime" type="time"></label>
+              <label>Room <input name="room" maxlength="20" placeholder="CS-104"></label>
+            </div>
+            <div class="form-actions"><button class="button" type="submit">Add section</button></div>
+          </form>
+        </details>
+        <div id="section-list"></div>
+      </div>
+    </section>
+
+    <section id="majors" role="tabpanel" aria-labelledby="tab-majors" hidden>
+      <div class="panel">
+        <h2>Degree requirements</h2>
+        <p class="lede">A student can graduate after passing every required course and completing the major's total units.</p>
+        <details class="add">
+          <summary>Define or change a major</summary>
+          <form id="define-major">
+            <div class="form-grid">
+              <label>Code <input name="code" required maxlength="12" placeholder="BSCS"></label>
+              <label>Name <input name="name" required maxlength="100" placeholder="Computer Science"></label>
+              <label>Degree <input name="degree" required maxlength="20" placeholder="B.S."></label>
+              <label>Total units <input name="totalUnits" type="number" min="1" max="300" value="120" required></label>
+              <label class="wide">Required courses
+                <textarea name="requiredCourses" rows="3" placeholder="Course codes separated by commas"></textarea>
+              </label>
+            </div>
+            <div class="form-actions"><button class="button" type="submit">Save major</button></div>
+          </form>
+        </details>
+        <div id="major-list"></div>
+      </div>
+    </section>
+
+    <section id="records" role="tabpanel" aria-labelledby="tab-records" hidden>
+      <div class="panel no-print">
+        <h2>Transcripts and graduation checks</h2>
+        <form class="toolbar" id="records-form">
+          <label>Student CWID <input name="cwid" required inputmode="numeric" pattern="\d{9}" maxlength="9" placeholder="885104273"></label>
+          <button class="button" type="submit" value="transcript">Generate transcript</button>
+          <button class="button secondary" type="submit" value="graduation">Run graduation check</button>
+        </form>
+      </div>
+      <div id="records-result"></div>
+    </section>
+  </main>
+
+  <dialog id="password-dialog" aria-labelledby="password-title">
+    <form>
+      <h2 id="password-title">New password for <span data-account-name></span></h2>
+      <label>Password <input name="password" type="password" required minlength="8" maxlength="72" autocomplete="new-password"></label>
+      <p class="muted">At least 8 characters. Share it with the person privately; they are signed out everywhere.</p>
+      <div class="form-actions">
+        <button class="button" type="submit">Set password</button>
+        <button class="button secondary" type="button" data-cancel>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

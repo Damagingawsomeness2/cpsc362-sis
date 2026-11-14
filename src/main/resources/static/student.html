@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student portal | Titan SIS</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/sis.css">
+  <script type="module" src="/js/student.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <p class="brand"><span class="brand-mark" aria-hidden="true">T</span> <span class="brand-name">Titan SIS</span></p>
+      <span class="portal-name">Student portal</span>
+      <div class="account">
+        <span data-user-name></span>
+        <button class="button small on-navy" type="button" data-sign-out>Sign out</button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Student portal">
+      <button class="tab" type="button" role="tab" id="tab-register" aria-controls="register">Register</button>
+      <button class="tab" type="button" role="tab" id="tab-schedule" aria-controls="schedule">My schedule</button>
+      <button class="tab" type="button" role="tab" id="tab-history" aria-controls="history">Academic history</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="panel" aria-label="Your record" id="profile"></section>
+
+    <section id="register" role="tabpanel" aria-labelledby="tab-register" hidden>
+      <div class="panel">
+        <h2>Register for classes</h2>
+        <form class="toolbar" id="section-search">
+          <label>Term <select id="term"></select></label>
+          <label class="grow">Course
+            <input name="search" type="search" placeholder="Code or title, e.g. CPSC 335 or algorithms">
+          </label>
+          <button class="button" type="submit">Show sections</button>
+        </form>
+        <p class="lede" id="term-note"></p>
+        <div id="sections"></div>
+      </div>
+    </section>
+
+    <section id="schedule" role="tabpanel" aria-labelledby="tab-schedule" hidden></section>
+
+    <section id="history" role="tabpanel" aria-labelledby="tab-history" hidden></section>
+  </main>
+</body>
+</html>

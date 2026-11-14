@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Professor portal | Titan SIS</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/sis.css">
+  <script type="module" src="/js/professor.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <p class="brand"><span class="brand-mark" aria-hidden="true">T</span> <span class="brand-name">Titan SIS</span></p>
+      <span class="portal-name">Professor portal</span>
+      <div class="account">
+        <span data-user-name></span>
+        <button class="button small on-navy" type="button" data-sign-out>Sign out</button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Professor portal">
+      <button class="tab" type="button" role="tab" id="tab-classes" aria-controls="classes">My classes</button>
+      <button class="tab" type="button" role="tab" id="tab-lookup" aria-controls="lookup">Student lookup</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="classes" role="tabpanel" aria-labelledby="tab-classes" hidden>
+      <div class="panel">
+        <h2>My classes</h2>
+        <div id="my-sections"></div>
+      </div>
+      <div class="panel" id="roll" hidden></div>
+    </section>
+
+    <section id="lookup" role="tabpanel" aria-labelledby="tab-lookup" hidden>
+      <div class="panel">
+        <h2>Look up a student</h2>
+        <p class="lede">See a student's current schedule and academic history.</p>
+        <form class="toolbar" id="lookup-form">
+          <label>CWID <input name="cwid" required inputmode="numeric" pattern="\d{9}" maxlength="9" placeholder="885104273"></label>
+          <button class="button" type="submit">Look up</button>
+        </form>
+      </div>
+      <div id="lookup-result"></div>
+    </section>
+  </main>
+</body>
+</html>
